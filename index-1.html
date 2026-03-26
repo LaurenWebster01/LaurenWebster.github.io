@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lauren Webster — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #faf8f5; --bg2: #f3efe9; --surface: #ffffff; --border: rgba(0,0,0,0.07);
+    --rose: #e8927c; --rose-light: #f5c4b8; --rose-pale: #fdf0ec;
+    --sage: #8aab97; --sage-light: #c5dace; --sage-pale: #edf4ef;
+    --lavender: #a899c8; --lavender-pale: #f0edf8;
+    --text: #2c2825; --text2: #5c5550; --muted: #9a928c;
+    --font-serif: 'DM Serif Display', serif; --font-sans: 'DM Sans', sans-serif;
+    --radius: 16px; --radius-sm: 8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-weight: 300; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 4px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(250,248,245,0.88); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-serif); font-size: 1.2rem; color: var(--text); }
+  .nav-logo span { color: var(--rose); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; padding: 8rem 4rem 4rem; gap: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,146,124,0.18), transparent 70%); top: -100px; right: -100px; }
+  .blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(138,171,151,0.15), transparent 70%); bottom: 0; left: -80px; }
+  .blob-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(168,153,200,0.12), transparent 70%); top: 40%; right: 30%; }
+  .hero-content { position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.9s ease 0.2s forwards; }
+  .hero-greeting { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 400; color: var(--rose); background: var(--rose-pale); padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.75rem; letter-spacing: 0.04em; }
+  .hero-greeting::before { content: '✦'; font-size: 0.6rem; }
+  .hero-name { font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 1.5rem; }
+  .hero-name em { font-style: italic; color: var(--rose); }
+  .hero-bio { font-size: 1rem; line-height: 1.85; color: var(--text2); max-width: 460px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.75rem; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; text-decoration: none; border-radius: 100px; transition: all 0.25s ease; cursor: pointer; border: none; letter-spacing: 0.01em; }
+  .btn-primary { background: var(--rose); color: #fff; }
+  .btn-primary:hover { background: #d97a63; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(232,146,124,0.35); }
+  .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--rose-light); color: var(--rose); transform: translateY(-2px); }
+
+  .hero-visual { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; opacity: 0; animation: fadeIn 1.1s ease 0.6s forwards; }
+  .hero-card-stack { position: relative; width: 320px; height: 380px; }
+  .hcard { position: absolute; width: 265px; border-radius: var(--radius); padding: 1.5rem; border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 8px 40px rgba(0,0,0,0.08); }
+  .hcard-1 { background: linear-gradient(135deg, #fff9f7, #fdeae4); top: 0; left: 0; transform: rotate(-5deg); }
+  .hcard-2 { background: linear-gradient(135deg, #f4f9f5, #e6f2ea); top: 60px; left: 40px; transform: rotate(2deg); }
+  .hcard-3 { background: linear-gradient(135deg, #f8f6ff, #ede9f8); top: 120px; left: 20px; transform: rotate(-1deg); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+  .hcard-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .hcard-value { font-family: var(--font-serif); font-size: 1rem; color: var(--text); line-height: 1.4; }
+  .hcard-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .chip { position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 0.45rem 1rem; font-size: 0.75rem; font-weight: 500; color: var(--text2); box-shadow: 0 4px 16px rgba(0,0,0,0.06); white-space: nowrap; animation: floatChip 4s ease-in-out infinite; }
+  .chip-1 { top: 10px; right: 0; animation-delay: 0s; }
+  .chip-2 { bottom: 80px; right: 10px; animation-delay: 1.5s; }
+  .chip-3 { bottom: 20px; left: 0; animation-delay: 0.8s; }
+  @keyframes floatChip { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  section { padding: 6rem 4rem; }
+  .section-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+  .section-eyebrow::after { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--sage); }
+  .section-title { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -0.01em; color: var(--text); margin-bottom: 3rem; }
+  .section-title em { font-style: italic; color: var(--rose); }
+
+  /* SKILLS */
+  #skills { background: var(--bg2); }
+  .skills-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .skill-tile { background: var(--surface); border-radius: var(--radius); padding: 1.75rem; border: 1px solid var(--border); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .skill-tile:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+  .skill-tile:nth-child(1) { grid-column: span 2; background: var(--rose-pale); border-color: var(--rose-light); }
+  .skill-tile:nth-child(4) { grid-column: span 2; background: var(--sage-pale); border-color: var(--sage-light); }
+  .tile-icon { font-size: 1.6rem; margin-bottom: 0.9rem; display: block; }
+  .tile-name { font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--text); }
+  .tile-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.7; margin-bottom: 1rem; }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pill { font-size: 0.7rem; font-weight: 500; padding: 0.25rem 0.7rem; border-radius: 100px; background: rgba(255,255,255,0.8); color: var(--text2); border: 1px solid var(--border); }
+  .skill-tile:nth-child(1) .pill { background: rgba(232,146,124,0.12); color: var(--rose); border-color: rgba(232,146,124,0.2); }
+  .skill-tile:nth-child(4) .pill { background: rgba(138,171,151,0.12); color: var(--sage); border-color: rgba(138,171,151,0.2); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .exp-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .exp-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; transition: all 0.25s ease; position: relative; overflow: hidden; }
+  .exp-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--rose-light); border-radius: 0 2px 2px 0; transform: scaleY(0); transform-origin: center; transition: transform 0.3s ease; }
+  .exp-card:hover { box-shadow: 0 12px 40px rgba(232,146,124,0.1); border-color: var(--rose-light); }
+  .exp-card:hover::before { transform: scaleY(1); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+  .exp-title { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text); }
+  .exp-date { font-size: 0.75rem; color: var(--muted); background: var(--bg2); padding: 0.25rem 0.75rem; border-radius: 100px; border: 1px solid var(--border); white-space: nowrap; }
+  .exp-company { font-size: 0.82rem; font-weight: 500; color: var(--rose); margin-bottom: 1rem; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .exp-bullets li { font-size: 0.82rem; color: var(--text2); line-height: 1.7; padding-left: 1.2rem; position: relative; }
+  .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--rose-light); }
+
+  /* PROJECTS */
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 2.5rem; display: grid; grid-template-columns: auto 1fr auto; gap: 2rem; align-items: center; transition: all 0.25s ease; text-decoration: none; color: inherit; position: relative; overflow: hidden; }
+  .project-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--rose-light); border-radius: 0 2px 2px 0; transform: scaleY(0); transform-origin: center; transition: transform 0.3s ease; }
+  .project-row:hover { border-color: var(--rose-light); box-shadow: 0 12px 40px rgba(232,146,124,0.1); transform: translateX(4px); }
+  .project-row:hover::before { transform: scaleY(1); }
+  .project-num { font-family: var(--font-serif); font-size: 2rem; color: var(--rose-light); line-height: 1; width: 48px; }
+  .project-info h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 0.4rem; color: var(--text); }
+  .project-info p { font-size: 0.82rem; color: var(--text2); line-height: 1.7; margin-bottom: 0.8rem; }
+  .project-meta { display: flex; align-items: flex-end; flex-direction: column; gap: 0.75rem; min-width: 120px; }
+  .project-link-btn { font-size: 0.75rem; font-weight: 500; color: var(--rose); background: var(--rose-pale); padding: 0.4rem 1rem; border-radius: 100px; text-decoration: none; white-space: nowrap; transition: background 0.2s; border: 1px solid var(--rose-light); }
+  .project-link-btn:hover { background: var(--rose-light); }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+  .about-layout { display: grid; grid-template-columns: 1fr 360px; gap: 4rem; align-items: start; }
+  .about-text p { font-size: 0.92rem; line-height: 1.95; color: var(--text2); margin-bottom: 1.25rem; }
+  .about-text strong { color: var(--text); font-weight: 500; }
+  .availability-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--sage-pale); border: 1px solid var(--sage-light); color: var(--sage); font-size: 0.78rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: 100px; margin-top: 1.5rem; }
+  .availability-dot { width: 7px; height: 7px; background: var(--sage); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+  .about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+  .info-card-title { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .info-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+  .info-item:last-child { border-bottom: none; }
+  .info-item-label { color: var(--muted); }
+  .info-item-value { color: var(--text); font-weight: 400; text-align: right; }
+
+  /* CONTACT */
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+  .contact-links-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border); text-decoration: none; color: var(--text2); font-size: 0.83rem; transition: all 0.2s; }
+  .contact-link:hover { background: var(--rose-pale); border-color: var(--rose-light); color: var(--rose); transform: translateX(4px); }
+  .contact-link-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: var(--surface); border: 1px solid var(--border); flex-shrink: 0; }
+  .contact-note { background: linear-gradient(135deg, var(--rose-pale), var(--lavender-pale)); border: 1px solid var(--rose-light); border-radius: var(--radius); padding: 2rem; font-size: 0.85rem; line-height: 1.85; color: var(--text2); }
+  .contact-note .big-quote { font-family: var(--font-serif); font-size: 1.5rem; font-style: italic; color: var(--text); display: block; margin-bottom: 1rem; line-height: 1.4; }
+
+  footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--muted); }
+  footer a { color: var(--rose); text-decoration: none; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 960px) {
+    nav { padding: 1rem 2rem; }
+    section { padding: 4rem 2rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    .hero-visual { display: none; }
+    .skills-bento { grid-template-columns: 1fr 1fr; }
+    .skill-tile:nth-child(1), .skill-tile:nth-child(4) { grid-column: span 2; }
+    .about-layout, .contact-wrap { grid-template-columns: 1fr; }
+    .project-row { grid-template-columns: auto 1fr; }
+    .project-meta { display: none; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .skills-bento { grid-template-columns: 1fr; }
+    .skill-tile:nth-child(1), .skill-tile:nth-child(4) { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Lauren <span>Webster</span></div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-greeting">Information Science &amp; Technology · Temple University</div>
+    <h1 class="hero-name">Hi, I'm<br><em>Lauren Webster</em></h1>
+    <p class="hero-bio">Developer and operations professional bridging the gap between technology and people. I build full-stack web applications, manage enterprise partnerships, and turn complex problems into clean solutions.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">See My Work</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+    </div>
+    <div class="contact-note reveal" style="transition-delay:0.15s">
+      <span class="big-quote">"I bridge the gap between building the technology and managing the people who use it."</span>
+      <p>I'm particularly drawn to roles where technical skills and communication both matter — teams building real products for real users. If that sounds like your organization, I would love to connect.</p>
+    </div>
+  </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hcard hcard-1">
+        <div class="hcard-label">Current Role</div>
+        <div class="hcard-value">Operations &amp; Business Relations Lead @ Techsgiving</div>
+      </div>
+      <div class="hcard hcard-2">
+        <div class="hcard-label">Status</div>
+        <div class="hcard-value"><span class="hcard-dot" style="background:var(--sage)"></span>Open to Opportunities</div>
+      </div>
+      <div class="hcard hcard-3">
+        <div class="hcard-label">Studying</div>
+        <div class="hcard-value">B.S. Information Science &amp; Technology, Temple University · 2026</div>
+      </div>
+    </div>
+    <span class="chip chip-1">⚙️ ASP.NET &amp; C#</span>
+    <span class="chip chip-2">📱 React Native</span>
+    <span class="chip chip-3">🗄️ SQL Server</span>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow reveal">What I bring</div>
+  <h2 class="section-title reveal">Skills &amp; <em>Technologies</em></h2>
+  <div class="skills-bento">
+    <div class="skill-tile reveal">
+      <span class="tile-icon">🖥️</span>
+      <div class="tile-name">Full-Stack Web Development</div>
+      <p class="tile-desc">Building multi-tier web applications from the database layer up to the user interface, with a strong foundation in server-side development and relational databases.</p>
+      <div class="pill-group">
+        <span class="pill">C#</span><span class="pill">ASP.NET</span><span class="pill">.NET</span><span class="pill">SQL Server</span><span class="pill">JavaScript</span><span class="pill">HTML/CSS</span>
+      </div>
+    </div>
+    <div class="skill-tile reveal" style="transition-delay:0.1s">
+      <span class="tile-icon">📱</span>
+      <div class="tile-name">Mobile Development</div>
+      <p class="tile-desc">Cross-platform mobile app development for iOS and Android using modern frameworks and Agile workflows.</p>
+      <div class="pill-group">
+        <span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">iOS</span><span class="pill">Android</span>
+      </div>
+    </div>
+    <div class="skill-tile reveal" style="transition-delay:0.15s">
+      <span class="tile-icon">🧪</span>
+      <div class="tile-name">QA &amp; Testing</div>
+      <p class="tile-desc">Debugging, issue resolution, and quality assurance across development cycles with a focus on application stability.</p>
+      <div class="pill-group">
+        <span class="pill">QA Testing</span><span class="pill">Debugging</span><span class="pill">Troubleshooting</span>
+      </div>
+    </div>
+    <div class="skill-tile reveal" style="transition-delay:0.05s">
+      <span class="tile-icon">🗄️</span>
+      <div class="tile-name">Database &amp; Backend</div>
+      <p class="tile-desc">Designing and querying relational databases, building server-side logic, and connecting data layers to user-facing applications efficiently and securely.</p>
+      <div class="pill-group">
+        <span class="pill">SQL Server</span><span class="pill">Relational Design</span><span class="pill">Query Optimization</span><span class="pill">Python</span><span class="pill">Java</span>
+      </div>
+    </div>
+    <div class="skill-tile reveal" style="transition-delay:0.2s">
+      <span class="tile-icon">🤝</span>
+      <div class="tile-name">Operations &amp; Strategy</div>
+      <p class="tile-desc">Stakeholder management, enterprise partnerships, and cross-functional coordination at scale.</p>
+      <div class="pill-group">
+        <span class="pill">Agile/Scrum</span><span class="pill">B2B/B2G</span><span class="pill">Project Mgmt</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow reveal">Where I've worked</div>
+  <h2 class="section-title reveal">Work <em>Experience</em></h2>
+  <div class="exp-list">
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Operations &amp; Business Relations Lead</div>
+          <div class="exp-company">Techsgiving · Washington, DC</div>
+        </div>
+        <div class="exp-date">June 2024 – Present</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Serve as liaison for B2C, B2B, and B2G stakeholders, supporting enterprise and government partnerships including Google, Intuit, NASA, FBI, and Accenture.</li>
+        <li>Coordinated across 35 partners, 20 small business vendors, and 2,700 attendees to drive large-scale workforce development initiatives.</li>
+        <li>Leverage project management and negotiation skills to strengthen Techsgiving's reputation as a leader in workforce engagement and tech innovation.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal" style="transition-delay:0.1s">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Mobile Application Developer</div>
+          <div class="exp-company">Vivify Solutions · Atlanta, GA</div>
+        </div>
+        <div class="exp-date">Oct 2023 – Mar 2024</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Designed and implemented multiple mobile applications using React Native and Expo for cross-platform iOS and Android development.</li>
+        <li>Resolved 40+ issues during QA cycles, improving application stability and overall performance.</li>
+        <li>Collaborated with product managers and designers within Agile sprint workflows to refine interfaces and deliver features on schedule.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow reveal">My work</div>
+  <h2 class="section-title reveal">Technical <em>Projects</em></h2>
+  <div class="projects-list">
+
+    <div class="project-row reveal">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <h3>Dating Platform Web Application</h3>
+        <p>A full-stack web application enabling users to create profiles and interact with potential matches. Features user authentication, profile management, and database-driven matchmaking functionality.</p>
+        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span></div>
+      </div>
+      <div class="project-meta">
+        <a href="https://cis-iis2.temple.edu/spring2026/cis3342_TUi13979/Project1/Search.aspx" class="project-link-btn">Try Me →</a>
+      </div>
+    </div>
+
+    <div class="project-row reveal" style="transition-delay:0.1s">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <h3>PizzaShop Web Application</h3>
+        <p>A multi-tier restaurant ordering application built with ASP.NET WebForms. Includes SQL tables and queries managing menu items, customer orders, and transaction records end-to-end.</p>
+        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span><span class="pill">WebForms</span></div>
+      </div>
+      <div class="project-meta">
+        <a href="https://cis-iis2.temple.edu/Fall2025/CIS3342_tui13979/Project1/" class="project-link-btn">Try Me →</a>
+      </div>
+    </div>
+
+    <div class="project-row reveal" style="transition-delay:0.15s">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <h3>TravelSite Web Application</h3>
+        <p>A database-driven travel booking platform with dynamic destination listings, server-side validation, and SQL queries for filtering, search functionality, and trip management.</p>
+        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span></div>
+      </div>
+      <div class="project-meta">
+        <a href="https://cis-iis2.temple.edu/Fall2025/CIS3342_tui13979/Project2/" class="project-link-btn">Try Me →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow reveal">Background</div>
+  <h2 class="section-title reveal">A little <em>about me</em></h2>
+  <div class="about-layout">
+    <div class="about-text reveal">
+      <p>I'm a senior studying <strong>Information Science &amp; Technology at Temple University</strong>, with hands-on experience spanning full-stack web development, mobile application development, and large-scale operations management.</p>
+      <p>My background is a bit unusual — I've written C# and SQL to build real web applications in the classroom, debugged production mobile apps at a software company in Atlanta, and managed partnerships with organizations like <strong>Google, NASA, and the FBI</strong> in my current role at Techsgiving.</p>
+      <p>That mix of technical depth and business communication is what I bring to every team. I'm comfortable in a standup and comfortable in a stakeholder meeting — and I know how to translate between the two.</p>
+      <p>I'm actively seeking <strong>full-time roles or internships</strong> in software development, technical operations, or information systems for.</p>
+      <div class="availability-badge"><div class="availability-dot"></div>Open to Full-Time &amp; Internship Opportunities</div>
+      <div style="margin-top:1.5rem;"><a href="#" class="btn btn-outline">Download Résumé ↓</a></div>
+    </div>
+    <div class="about-sidebar reveal" style="transition-delay:0.2s">
+      <div class="info-card">
+        <div class="info-card-title">Quick Info</div>
+        <div class="info-item"><span class="info-item-label">School</span><span class="info-item-value">Temple University</span></div>
+        <div class="info-item"><span class="info-item-label">Degree</span><span class="info-item-value">B.S. IST</span></div>
+        <div class="info-item"><span class="info-item-label">Graduating</span><span class="info-item-value">May 2026</span></div>
+        <div class="info-item"><span class="info-item-label">Location</span><span class="info-item-value">Philadelphia, PA</span></div>
+        <div class="info-item"><span class="info-item-label">Email</span><span class="info-item-value">L.Webster092@gmail.com</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Coursework</div>
+        <div class="info-item"><span class="info-item-label">🖥️</span><span class="info-item-value">Server-Side Scripting (ASP.NET)</span></div>
+        <div class="info-item"><span class="info-item-label">🗄️</span><span class="info-item-value">Database Management</span></div>
+        <div class="info-item"><span class="info-item-label">🧪</span><span class="info-item-value">QA &amp; Testing</span></div>
+        <div class="info-item"><span class="info-item-label">🧩</span><span class="info-item-value">Component-Based Software Design</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow reveal">Say hello</div>
+  <h2 class="section-title reveal">Let's <em>Connect</em></h2>
+  <div class="contact-wrap">
+    <div class="contact-card reveal">
+      <p style="font-size:0.85rem;color:var(--text2);line-height:1.85;margin-bottom:1.5rem;">Whether you're a recruiter, a fellow developer, or someone with an interesting project — I'd love to hear from you. I respond to every message.</p>
+      <div class="contact-links-list">
+        <a href="mailto:L.Webster092@gmail.com" class="contact-link">
+          <div class="contact-link-icon">✉️</div>
+          <span>L.Webster092@gmail.com</span>
+        </a>
+        <a href="tel:5165269077" class="contact-link">
+          <div class="contact-link-icon">📞</div>
+          <span>516-526-9077</span>
+        </a>
+        <a href="https://www.linkedin.com/in/mslaurenwebster" target="_blank" class="contact-link">
+          <div class="contact-link-icon">💼</div>
+          <span>LinkedIn Profile</span>
+        </a>
+        <a href="https://github.com/LaurenWebster01" target="_blank" class="contact-link">
+          <div class="contact-link-icon">🐙</div>
+          <span>GitHub</span>
+        </a>
+      </div>
+    
+</section>
+
+<footer>
+  <span>© 2025 Lauren Webster · Philadelphia, PA</span>
+  <span>Built with HTML, CSS &amp; JS &nbsp;·&nbsp; <a href="#" id="totop">Back to top ↑</a></span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--rose)' : ''; });
+  });
+  document.getElementById('totop').addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+</script>
+</body>
+</html>
