@@ -147,6 +147,19 @@
   .contact-note { background: linear-gradient(135deg, var(--rose-pale), var(--lavender-pale)); border: 1px solid var(--rose-light); border-radius: var(--radius); padding: 2rem; font-size: 0.85rem; line-height: 1.85; color: var(--text2); }
   .contact-note .big-quote { font-family: var(--font-serif); font-size: 1.5rem; font-style: italic; color: var(--text); display: block; margin-bottom: 1rem; line-height: 1.4; }
 
+
+  /* CERTIFICATIONS */
+  #certifications { background: var(--bg); }
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; display: flex; gap: 1.25rem; align-items: flex-start; transition: all 0.25s ease; }
+  .cert-card:hover { border-color: var(--lavender); box-shadow: 0 12px 40px rgba(168,153,200,0.12); transform: translateY(-3px); }
+  .cert-badge { width: 52px; height: 52px; border-radius: 12px; background: var(--lavender-pale); border: 1px solid rgba(168,153,200,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+  .cert-body { flex: 1; }
+  .cert-name { font-family: var(--font-serif); font-size: 1rem; color: var(--text); margin-bottom: 0.2rem; }
+  .cert-issuer { font-size: 0.78rem; color: var(--lavender); font-weight: 500; margin-bottom: 0.5rem; }
+  .cert-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.75rem; }
+  .cert-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 0.68rem; font-weight: 500; padding: 0.2rem 0.65rem; border-radius: 100px; background: var(--lavender-pale); color: var(--lavender); border: 1px solid rgba(168,153,200,0.25); }
+
   footer { padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--muted); }
   footer a { color: var(--rose); text-decoration: none; }
 
@@ -181,6 +194,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -191,7 +205,6 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
-
   <div class="hero-content">
     <div class="hero-greeting">Information Science &amp; Technology · Temple University</div>
     <h1 class="hero-name">Hi, I'm<br><em>Lauren Webster</em></h1>
@@ -200,12 +213,6 @@
       <a href="#projects" class="btn btn-primary">See My Work</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
     </div>
-    </div>
-    <div class="contact-note reveal" style="transition-delay:0.15s">
-      <span class="big-quote">"I bridge the gap between building the technology and managing the people who use it."</span>
-      <p>I'm particularly drawn to roles where technical skills and communication both matter — teams building real products for real users. If that sounds like your organization, I would love to connect.</p>
-    </div>
-  </div>
   </div>
   <div class="hero-visual">
     <div class="hero-card-stack">
@@ -321,39 +328,136 @@
   <h2 class="section-title reveal">Technical <em>Projects</em></h2>
   <div class="projects-list">
 
-    <div class="project-row reveal">
-      <div class="project-num">01</div>
+    <!-- DATING SITE GROUP -->
+    <div class="reveal" style="margin-bottom:0.25rem;">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:var(--rose-pale);border:1px solid var(--rose-light);border-radius:100px;padding:0.35rem 1rem;font-size:0.75rem;font-weight:500;color:var(--rose);margin-bottom:0.75rem;">
+        ✦ Project Series — Dating Platform Evolution
+      </div>
+      <p style="font-size:0.8rem;color:var(--muted);max-width:600px;line-height:1.7;">Three versions of the same project, each building on the last — showing growth in architecture, database design, and feature complexity across a full academic year.</p>
+    </div>
+
+    <div class="project-row reveal" style="border-left: 3px solid var(--rose-light); transition-delay:0.05s">
+      <div class="project-num" style="font-size:1.1rem;color:var(--muted);width:56px;font-family:var(--font-sans);font-weight:500;">v1.0</div>
       <div class="project-info">
-        <h3>Dating Platform Web Application</h3>
-        <p>A full-stack web application enabling users to create profiles and interact with potential matches. Features user authentication, profile management, and database-driven matchmaking functionality.</p>
-        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span></div>
+        <h3>The LinkUp — Initial Build</h3>
+        <p>First version of a full-stack dating platform. Established the core data model with user profiles and basic authentication. Built the foundational ASP.NET architecture with SQL Server, focusing on getting the database schema and server-side routing right.</p>
+        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span><span class="pill">Authentication</span></div>
       </div>
       <div class="project-meta">
-        <a href="https://cis-iis2.temple.edu/spring2026/cis3342_TUi13979/Project1/Search.aspx" class="project-link-btn">Try Me →</a>
+        <a href="https://cis-iis2.temple.edu/spring2026/cis3342_TUi13979/Project1/Search.aspx" target="_blank" class="project-link-btn">Live Site →</a>
       </div>
     </div>
 
-    <div class="project-row reveal" style="transition-delay:0.1s">
-      <div class="project-num">02</div>
+    <div class="project-row reveal" style="border-left: 3px solid var(--rose); transition-delay:0.1s">
+      <div class="project-num" style="font-size:1.1rem;color:var(--muted);width:56px;font-family:var(--font-sans);font-weight:500;">v2.0</div>
+      <div class="project-info">
+        <h3>The LinkUp — Profile & Matching</h3>
+        <p>Expanded the platform with full profile management, photo handling, and a preference-based matching system. Refactored the database schema to support relational matching logic and added server-side validation throughout.</p>
+        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span><span class="pill">Profile Mgmt</span><span class="pill">Matching Logic</span></div>
+      </div>
+      <div class="project-meta">
+        <a href="https://cis-iis2.temple.edu/spring2026/cis3342_TUi13979/Project2/" target="_blank" class="project-link-btn">Live Site →</a>
+      </div>
+    </div>
+
+    <div class="project-row reveal" style="border-left: 3px solid #c0606e; transition-delay:0.15s">
+      <div class="project-num" style="font-size:1.1rem;color:var(--muted);width:56px;font-family:var(--font-sans);font-weight:500;">v3.0</div>
+      <div class="project-info">
+        <h3>The LinkUp — Full Platform</h3>
+        <p>Final version with event-based interactions, a messaging layer, and an admin dashboard for user management. Deployed to a school server with multi-project solution architecture. Demonstrates full-stack ownership from database to UI across a multi-month build.</p>
+        <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span><span class="pill">Events</span><span class="pill">Messaging</span><span class="pill">Admin Dashboard</span></div>
+      </div>
+      <div class="project-meta">
+        <a href="https://cis-iis2.temple.edu/spring2026/cis3342_TUi13979/Project3/" target="_blank" class="project-link-btn">Live Site →</a>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div style="height:1rem;"></div>
+
+    <!-- OTHER PROJECTS -->
+    <div class="project-row reveal" style="transition-delay:0.05s">
+      <div class="project-num">04</div>
       <div class="project-info">
         <h3>PizzaShop Web Application</h3>
         <p>A multi-tier restaurant ordering application built with ASP.NET WebForms. Includes SQL tables and queries managing menu items, customer orders, and transaction records end-to-end.</p>
         <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span><span class="pill">WebForms</span></div>
       </div>
       <div class="project-meta">
-        <a href="https://cis-iis2.temple.edu/Fall2025/CIS3342_tui13979/Project1/" class="project-link-btn">Try Me →</a>
+        <a href="https://cis-iis2.temple.edu/Fall2025/CIS3342_tui13979/Project1/" target="_blank" class="project-link-btn">Live Site →</a>
       </div>
     </div>
 
-    <div class="project-row reveal" style="transition-delay:0.15s">
-      <div class="project-num">03</div>
+    <div class="project-row reveal" style="transition-delay:0.1s">
+      <div class="project-num">05</div>
       <div class="project-info">
         <h3>TravelSite Web Application</h3>
         <p>A database-driven travel booking platform with dynamic destination listings, server-side validation, and SQL queries for filtering, search functionality, and trip management.</p>
         <div class="pill-group"><span class="pill">ASP.NET</span><span class="pill">C#</span><span class="pill">SQL Server</span></div>
       </div>
       <div class="project-meta">
-        <a href="https://cis-iis2.temple.edu/Fall2025/CIS3342_tui13979/Project2/" class="project-link-btn">Try Me →</a>
+        <a href="https://cis-iis2.temple.edu/Fall2025/CIS3342_tui13979/Project2/" target="_blank" class="project-link-btn">Live Site →</a>
+      </div>
+    </div>
+
+    <!-- TASKMATE -->
+    <div class="reveal" style="margin-top:0.5rem;margin-bottom:0.25rem;">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:var(--sage-pale);border:1px solid var(--sage-light);border-radius:100px;padding:0.35rem 1rem;font-size:0.75rem;font-weight:500;color:var(--sage);">
+        ✦ Product Management Case Study
+      </div>
+    </div>
+
+    <div class="project-row reveal" style="transition-delay:0.1s; background: linear-gradient(135deg, var(--surface), var(--sage-pale)); border-color: var(--sage-light);">
+      <div class="project-num">06</div>
+      <div class="project-info">
+        <h3>TaskMate — Product Management Capstone</h3>
+        <p>End-to-end product management case study for a task and project management SaaS platform. Defined the product vision, ICP, and competitive positioning against Asana, Trello, and Monday.com. Developed a full go-to-market strategy with KPI targets (15K users in 3 months, 30% retention at 30 days), a phased product roadmap from planning through post-launch maintenance, and a freemium business model with Pro and Enterprise tiers.</p>
+        <div class="pill-group">
+          <span class="pill">Product Vision</span>
+          <span class="pill">Go-to-Market</span>
+          <span class="pill">Roadmapping</span>
+          <span class="pill">Competitive Analysis</span>
+          <span class="pill">KPI Definition</span>
+          <span class="pill">Freemium Model</span>
+        </div>
+        <div style="margin-top:1rem;padding:1rem;background:rgba(138,171,151,0.08);border-radius:8px;border:1px solid var(--sage-light);">
+          <div style="font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);margin-bottom:0.6rem;">Deliverables</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+            <a href="YOUR_GOOGLE_DRIVE_VISION_DOC_LINK" target="_blank" style="font-size:0.75rem;color:var(--text2);text-decoration:none;background:var(--surface);padding:0.3rem 0.75rem;border-radius:100px;border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--sage)';this.style.color='var(--sage)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">📄 Product Vision Doc</a>
+            <a href="YOUR_GOOGLE_DRIVE_ROADMAP_LINK" target="_blank" style="font-size:0.75rem;color:var(--text2);text-decoration:none;background:var(--surface);padding:0.3rem 0.75rem;border-radius:100px;border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--sage)';this.style.color='var(--sage)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">🗺️ Product Roadmap</a>
+            <a href="YOUR_GOOGLE_DRIVE_GTM_LINK" target="_blank" style="font-size:0.75rem;color:var(--text2);text-decoration:none;background:var(--surface);padding:0.3rem 0.75rem;border-radius:100px;border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--sage)';this.style.color='var(--sage)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">📊 Go-to-Market Strategy</a>
+            <a href="YOUR_GOOGLE_DRIVE_SECURITY_DOC_LINK" target="_blank" style="font-size:0.75rem;color:var(--text2);text-decoration:none;background:var(--surface);padding:0.3rem 0.75rem;border-radius:100px;border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--sage)';this.style.color='var(--sage)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">🔐 Data Security Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-meta">
+        <a href="#" class="project-link-btn" style="background:var(--sage-pale);color:var(--sage);border-color:var(--sage-light);">View Case Study →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-eyebrow reveal">Credentials</div>
+  <h2 class="section-title reveal">Certifi<em>cations</em></h2>
+  <div class="cert-grid">
+
+    <div class="cert-card reveal">
+      <div class="cert-badge">🛡️</div>
+      <div class="cert-body">
+        <div class="cert-name">Certified in Cybersecurity (CC)</div>
+        <div class="cert-issuer">ISC2</div>
+        <p class="cert-desc">Entry-level cybersecurity certification covering security principles, network security, access controls, incident response, and security operations — issued by the world's leading cybersecurity professional organization.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="cert-tag">✓ Verified</span>
+          <span class="cert-tag">Security Principles</span>
+          <span class="cert-tag">Access Control</span>
+          <span class="cert-tag">Incident Response</span>
+          <span class="cert-tag">Network Security</span>
+        </div>
       </div>
     </div>
 
@@ -369,7 +473,7 @@
       <p>I'm a senior studying <strong>Information Science &amp; Technology at Temple University</strong>, with hands-on experience spanning full-stack web development, mobile application development, and large-scale operations management.</p>
       <p>My background is a bit unusual — I've written C# and SQL to build real web applications in the classroom, debugged production mobile apps at a software company in Atlanta, and managed partnerships with organizations like <strong>Google, NASA, and the FBI</strong> in my current role at Techsgiving.</p>
       <p>That mix of technical depth and business communication is what I bring to every team. I'm comfortable in a standup and comfortable in a stakeholder meeting — and I know how to translate between the two.</p>
-      <p>I'm actively seeking <strong>full-time roles or internships</strong> in software development, technical operations, or information systems for.</p>
+      <p>I'm actively seeking <strong>full-time roles or internships</strong> in software development, technical operations, or information systems for 2025/2026.</p>
       <div class="availability-badge"><div class="availability-dot"></div>Open to Full-Time &amp; Internship Opportunities</div>
       <div style="margin-top:1.5rem;"><a href="#" class="btn btn-outline">Download Résumé ↓</a></div>
     </div>
@@ -409,16 +513,21 @@
           <div class="contact-link-icon">📞</div>
           <span>516-526-9077</span>
         </a>
-        <a href="https://www.linkedin.com/in/mslaurenwebster" target="_blank" class="contact-link">
+        <a href="https://linkedin.com" target="_blank" class="contact-link">
           <div class="contact-link-icon">💼</div>
           <span>LinkedIn Profile</span>
         </a>
-        <a href="https://github.com/LaurenWebster01" target="_blank" class="contact-link">
+        <a href="https://github.com" target="_blank" class="contact-link">
           <div class="contact-link-icon">🐙</div>
           <span>GitHub</span>
         </a>
       </div>
-    
+    </div>
+    <div class="contact-note reveal" style="transition-delay:0.15s">
+      <span class="big-quote">"I bridge the gap between building the technology and managing the people who use it."</span>
+      <p>I'm particularly drawn to roles where technical skills and communication both matter — teams building real products for real users. If that sounds like your organization, let's talk.</p>
+    </div>
+  </div>
 </section>
 
 <footer>
